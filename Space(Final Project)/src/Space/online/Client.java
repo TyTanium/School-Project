@@ -26,6 +26,7 @@ public class Client {
 		}
 	}
 
+	// Chat Methods
 	private String recieve() {
 		byte[] data = new byte[1024];
 		DatagramPacket packet = new DatagramPacket(data, data.length);
