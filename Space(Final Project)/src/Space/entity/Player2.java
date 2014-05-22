@@ -40,10 +40,23 @@ public class Player2 extends GameObject implements EntityA {
 		for (int i = 0; i < main.eb.size(); i++) {
 			EntityB tempEnt = main.eb.get(i);
 			if (Physics.collision(this, tempEnt)) {
-				c.removeEntity(tempEnt);
-				main.health2 -= 20;
-				main.score++;
-				Main.enemyKilled++;
+				if (tempEnt instanceof PowerUp) {
+					c.removeEntity(tempEnt);
+					if (((PowerUp) tempEnt).getType() == 0) {
+						main.rapidFire2 = true;
+					}
+					if (((PowerUp) tempEnt).getType() == 1) {
+						main.health2 = 100;
+					}
+					if (((PowerUp) tempEnt).getType() == 2) {
+
+					}
+				} else {
+					c.removeEntity(tempEnt);
+					main.health2 -= 20;
+					main.score++;
+					Main.enemyKilled++;
+				}
 			}
 		}
 	}

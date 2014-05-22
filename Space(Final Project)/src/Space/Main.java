@@ -209,11 +209,12 @@ public class Main extends Canvas implements Runnable {
 				}
 				upCounter++;
 				downCounter++;
-				if (rapidFire) {
+				if (rapidFire || rapidFire2) {
 					rapidFireTimer++;
 					if (rapidFireTimer == 20) {
 						rapidFireTimer = 0;
 						rapidFire = false;
+						rapidFire2 = false;
 					}
 				}
 				if (round) {
@@ -237,6 +238,7 @@ public class Main extends Canvas implements Runnable {
 	private boolean paused = false;
 	private boolean newEnemy = false;
 	private boolean update = true;
+	public static boolean rapidFire2 = false;
 
 	public void update() {
 		key.update();
@@ -334,9 +336,18 @@ public class Main extends Canvas implements Runnable {
 				if (key.right2) {
 					x2 += 2;
 				}
-				if (key.space && !isShooting) {
-					c.addEntity(new Bullet(p2.getXnXoff(), p2.getYnYoff(), tex, this, c));
-					isShooting = true;
+				if (!dead2) {
+					if (!rapidFire2) {
+						if (key.space && !isShooting) {
+							c.addEntity(new Bullet(p2.getXnXoff(), p2.getYnYoff(), tex, this, c));
+							isShooting = true;
+						}
+					}
+					if (rapidFire2) {
+						if (key.space) {
+							c.addEntity(new Bullet(p2.getXnXoff(), p2.getYnYoff(), tex, this, c));
+						}
+					}
 				}
 			}
 		}
