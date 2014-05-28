@@ -53,6 +53,7 @@ public class Main extends Canvas implements Runnable {
 	public int health2 = 100;
 	public static int enemyCount = 3;
 	public static int enemyKilled = 0;
+	private int speed = 2;
 
 	public List<EntityA> ea;
 	public List<EntityB> eb;
@@ -60,8 +61,8 @@ public class Main extends Canvas implements Runnable {
 	private BufferedImage image = new BufferedImage(width * scale, height * scale, BufferedImage.TYPE_INT_RGB);
 	public BufferedImage ss = null;
 	public BufferedImage background = null;
-	public BufferedImage pauseScreen = null;
 	public BufferedImage controls = null;
+	public BufferedImage pauseScreen = null;
 
 	public enum State {
 		MENU, GAME, CONTROLS, MENU2, END
@@ -90,7 +91,7 @@ public class Main extends Canvas implements Runnable {
 		key = new Keyboard();
 		tex = new Texture(this);
 		c = new Controller(this, tex);
-		p = new Player(width / 2 + 100, (height * scale) - 70, this, tex, c);
+		p = new Player(width / 2 + 100, (height * scale) - 70, this, tex, c, speed);
 		p2 = new Player2(width / 2 + 100, (height * scale) - 70, this, tex, c);
 		menu = new Menu(width * scale, height * scale);
 		up = new PowerUp(100, 0, tex, this, 2);
@@ -153,6 +154,7 @@ public class Main extends Canvas implements Runnable {
 	int upCounter = 0;
 	int downCounter = 0;
 	int time = 0;
+	int speedTimer = 0;
 
 	public void countdown(Graphics g) {
 		int i = 5 - counter;
@@ -219,6 +221,10 @@ public class Main extends Canvas implements Runnable {
 				}
 				if (round) {
 					time++;
+				}
+				speedTimer++;
+				if (speedTimer == 20) {
+					speed = 2;
 				}
 			}
 		}
