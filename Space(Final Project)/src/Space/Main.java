@@ -20,6 +20,7 @@ import Space.entity.Player;
 import Space.entity.Player2;
 import Space.entity.PowerDown;
 import Space.entity.PowerUp;
+import Space.entity.SpecialEnemy;
 import Space.graphics.ImageLoader;
 import Space.graphics.Menu;
 import Space.graphics.Texture;
@@ -46,6 +47,7 @@ public class Main extends Canvas implements Runnable {
 	private Controller c;
 	private PowerUp up;
 	private PowerDown down;
+	private SpecialEnemy special;
 
 	private static int players;
 	public int score = 0;
@@ -54,6 +56,7 @@ public class Main extends Canvas implements Runnable {
 	public static int enemyCount = 3;
 	public static int enemyKilled = 0;
 	private int speed = 2;
+	private int speed2 = 2;
 
 	public List<EntityA> ea;
 	public List<EntityB> eb;
@@ -92,7 +95,7 @@ public class Main extends Canvas implements Runnable {
 		tex = new Texture(this);
 		c = new Controller(this, tex);
 		p = new Player(width / 2 + 100, (height * scale) - 70, this, tex, c, speed);
-		p2 = new Player2(width / 2 + 100, (height * scale) - 70, this, tex, c);
+		p2 = new Player2(width / 2 + 100, (height * scale) - 70, this, tex, c, speed2);
 		menu = new Menu(width * scale, height * scale);
 		up = new PowerUp(100, 0, tex, this, 2);
 		down = new PowerDown(200, 0, tex, this, 2);
@@ -149,12 +152,13 @@ public class Main extends Canvas implements Runnable {
 		}
 	}
 
-	int counter = 0;
-	boolean able = false;
-	int upCounter = 0;
-	int downCounter = 0;
-	int time = 0;
-	int speedTimer = 0;
+	public int counter = 0;
+	public boolean able = false;
+	public int upCounter = 0;
+	public int downCounter = 0;
+	public int time = 0;
+	public int speedTimer = 0;
+	private int specialCounter = 0;
 
 	public void countdown(Graphics g) {
 		int i = 5 - counter;
@@ -222,9 +226,19 @@ public class Main extends Canvas implements Runnable {
 				if (round) {
 					time++;
 				}
-				speedTimer++;
-				if (speedTimer == 20) {
-					speed = 2;
+				if (p.speedRunner || p2.speedRunner2) {
+					speedTimer++;
+					System.out.println("SPEED");
+					if (speedTimer == 20) {
+						speed = 2;
+						p.speedRunner = false;
+						p2.speedRunner2 = false;
+					}
+				}
+				specialCounter++;
+				if (specialCounter == 30) {
+					c.addEntity(new SpecialEnemy(-10, random.nextInt(width * scale - 32), this, tex, c));
+					specialCounter = 0;
 				}
 			}
 		}

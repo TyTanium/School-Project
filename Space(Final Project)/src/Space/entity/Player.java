@@ -15,6 +15,7 @@ public class Player extends GameObject implements EntityA {
 	private double xa;
 	private double ya;
 	private int speed;
+	public boolean speedRunner = false;
 
 	private Main main;
 	private Texture tex;
@@ -59,6 +60,7 @@ public class Player extends GameObject implements EntityA {
 					}
 					if (((PowerUp) tempEnt).getType() == 3) {
 						speed = 4;
+						speedRunner = true;
 					}
 				} else {
 					c.removeEntity(tempEnt);
