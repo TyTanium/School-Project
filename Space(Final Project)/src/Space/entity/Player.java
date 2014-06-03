@@ -56,7 +56,7 @@ public class Player extends GameObject implements EntityA {
 						main.health = 100;
 					}
 					if (((PowerUp) tempEnt).getType() == 2) {
-
+						System.out.println("X");
 					}
 					if (((PowerUp) tempEnt).getType() == 3) {
 						speed = 4;
