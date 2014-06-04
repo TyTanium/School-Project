@@ -56,7 +56,6 @@ public class Main extends Canvas implements Runnable {
 	public static int enemyCount = 3;
 	public static int enemyKilled = 0;
 	public int speed = 2;
-	public int speed2 = 2;
 
 	public List<EntityA> ea;
 	public List<EntityB> eb;
@@ -95,7 +94,7 @@ public class Main extends Canvas implements Runnable {
 		tex = new Texture(this);
 		c = new Controller(this, tex);
 		p = new Player(width / 2 + 100, (height * scale) - 70, this, tex, c, speed);
-		p2 = new Player2(width / 2 + 100, (height * scale) - 70, this, tex, c, speed2);
+		p2 = new Player2(width / 2 + 100, (height * scale) - 70, this, tex, c, speed);
 		menu = new Menu(width * scale, height * scale);
 		up = new PowerUp(100, 0, tex, this, 2);
 		down = new PowerDown(200, 0, tex, this, 2);
@@ -228,14 +227,11 @@ public class Main extends Canvas implements Runnable {
 				}
 				if (p.speedRunner || p2.speedRunner2) {
 					speedTimer++;
-					speed = 5;
-					speed2 = 5;
-					System.out.println("SPEED");
+					speed = 4;
 					if (speedTimer == 20) {
 						speed = 2;
-						speed2 = 2;
 						p.setSpeed(speed);
-						p2.setSpeed(speed2);
+						p2.setSpeed(speed);
 						p.speedRunner = false;
 						p2.speedRunner2 = false;
 					}
@@ -307,16 +303,16 @@ public class Main extends Canvas implements Runnable {
 			}
 			p.setOff(x, y);
 			if (key.up) {
-				y -= 2;
+				y -= speed;
 			}
 			if (key.down) {
-				y += 2;
+				y += speed;
 			}
 			if (key.left) {
-				x -= 2;
+				x -= speed;
 			}
 			if (key.right) {
-				x += 2;
+				x += speed;
 			}
 			if (!dead1) {
 				if (!rapidFire) {

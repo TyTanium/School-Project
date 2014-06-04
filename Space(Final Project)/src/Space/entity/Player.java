@@ -34,13 +34,13 @@ public class Player extends GameObject implements EntityA {
 
 	public void update() {
 		if (x + main.x <= 0)
-			x += speed;
+			x += 2;
 		if (y + main.y <= 0)
-			y += speed;
+			y += 2;
 		if (x + main.x >= (main.width * main.scale) - tex.getWidth(tex.player[0]))
-			x -= speed;
+			x -= 2;
 		if (y + main.y >= (main.height * main.scale) - tex.getHeight(tex.player[0]))
-			y -= speed;
+			y -= 2;
 
 		anim.runAnimation();
 
