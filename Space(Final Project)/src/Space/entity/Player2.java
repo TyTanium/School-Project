@@ -56,9 +56,6 @@ public class Player2 extends GameObject implements EntityA {
 						main.health2 = 100;
 					}
 					if (((PowerUp) tempEnt).getType() == 2) {
-
-					}
-					if (((PowerUp) tempEnt).getType() == 3) {
 						speed = 4;
 						speedRunner2 = true;
 					}
@@ -83,6 +80,10 @@ public class Player2 extends GameObject implements EntityA {
 		// g2.setColor(Color.GREEN);
 		// g2.draw(new Rectangle((int) (this.x + xOff) + 20, (int) (this.y +
 		// yOff), 26, 64));
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 
 	public double getX() {

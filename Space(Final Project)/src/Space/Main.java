@@ -55,8 +55,8 @@ public class Main extends Canvas implements Runnable {
 	public int health2 = 100;
 	public static int enemyCount = 3;
 	public static int enemyKilled = 0;
-	private int speed = 2;
-	private int speed2 = 2;
+	public int speed = 2;
+	public int speed2 = 2;
 
 	public List<EntityA> ea;
 	public List<EntityB> eb;
@@ -228,9 +228,14 @@ public class Main extends Canvas implements Runnable {
 				}
 				if (p.speedRunner || p2.speedRunner2) {
 					speedTimer++;
+					speed = 5;
+					speed2 = 5;
 					System.out.println("SPEED");
 					if (speedTimer == 20) {
 						speed = 2;
+						speed2 = 2;
+						p.setSpeed(speed);
+						p2.setSpeed(speed2);
 						p.speedRunner = false;
 						p2.speedRunner2 = false;
 					}
@@ -238,6 +243,7 @@ public class Main extends Canvas implements Runnable {
 				specialCounter++;
 				if (specialCounter == 30) {
 					c.addEntity(new SpecialEnemy(-10, random.nextInt(width * scale - 32), this, tex, c));
+					enemyCount++;
 					specialCounter = 0;
 				}
 			}
@@ -418,6 +424,9 @@ public class Main extends Canvas implements Runnable {
 				}
 			}
 			if (round) {
+				for (int i = 0; i < eb.size(); i++) {
+					c.removeEntity(eb.get(i));
+				}
 				Font f = new Font("ariel", Font.BOLD, 40);
 				g.setFont(f);
 				g.setColor(Color.RED);

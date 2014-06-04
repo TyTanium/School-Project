@@ -10,6 +10,7 @@ public class Texture {
 	public BufferedImage[] enemy = new BufferedImage[3];
 	public BufferedImage[] bullet = new BufferedImage[1];
 	public BufferedImage[] powerUp = new BufferedImage[3];
+	public BufferedImage[] specialEnemy = new BufferedImage[3];
 
 	private SpriteSheet ss = null;
 
@@ -30,6 +31,9 @@ public class Texture {
 		powerUp[0] = ss.getImage64(1, 2);
 		powerUp[1] = ss.getImage64(2, 2);
 		powerUp[2] = ss.getImage64(3, 2);
+		specialEnemy[0] = ss.getImage64(0, 3);
+		specialEnemy[1] = ss.getImage64(1, 3);
+		specialEnemy[2] = ss.getImage64(2, 3);
 	}
 
 	public double getWidth(BufferedImage image) {

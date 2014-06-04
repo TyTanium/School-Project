@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import Space.Main;
+import Space.graphics.Animation;
 import Space.graphics.Texture;
 
 public class SpecialEnemy extends GameObject implements EntityB {
@@ -14,6 +15,7 @@ public class SpecialEnemy extends GameObject implements EntityB {
 	private Main main;
 	private Texture tex;
 	private Controller c;
+	private Animation anim;
 
 	private Random random = new Random();
 
@@ -26,18 +28,34 @@ public class SpecialEnemy extends GameObject implements EntityB {
 		this.main = main;
 		this.tex = tex;
 		this.c = c;
+
+		anim = new Animation(5, tex.specialEnemy[0], tex.specialEnemy[1], tex.specialEnemy[2]);
 	}
 
 	public void update() {
 		x += speed;
 
 		if (x > main.width * main.scale) {
-			x = -10;
-			y = random.nextInt(main.height * main.scale - 32);
+			c.removeEntity(this);
+			main.enemyCount--;
 		}
+
+		for (int i = 0; i < main.ea.size(); i++) {
+			EntityA tempEnt = main.ea.get(i);
+
+			if (Physics.collision(this, tempEnt)) {
+				c.removeEntity(tempEnt);
+				c.removeEntity(this);
+				main.score += 2;
+				main.enemyKilled++;
+			}
+		}
+
+		anim.runAnimation();
 	}
 
 	public void render(Graphics g) {
+		anim.drawAnimation(g, x, y, 2);
 	}
 
 	public double getX() {
