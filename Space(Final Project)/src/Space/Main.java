@@ -12,6 +12,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import Space.archive.WriteFiles;
 import Space.entity.Bullet;
 import Space.entity.Controller;
 import Space.entity.EntityA;
@@ -26,6 +27,7 @@ import Space.graphics.Menu;
 import Space.graphics.Texture;
 import Space.input.Keyboard;
 import Space.input.Mouse;
+import Space.sound.Sound;
 
 public class Main extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -48,6 +50,7 @@ public class Main extends Canvas implements Runnable {
 	private PowerUp up;
 	private PowerDown down;
 	private SpecialEnemy special;
+	private WriteFiles writer;
 
 	private static int players;
 	public int score = 0;
@@ -98,6 +101,7 @@ public class Main extends Canvas implements Runnable {
 		menu = new Menu(width * scale, height * scale);
 		up = new PowerUp(100, 0, tex, this, 2);
 		down = new PowerDown(200, 0, tex, this, 2);
+		writer = new WriteFiles();
 
 		c.addEnemy(enemyCount);
 		ea = c.getEntityA();
@@ -172,8 +176,10 @@ public class Main extends Canvas implements Runnable {
 			g.drawString("1", width / 2 + 60, 250);
 		if (i == 1)
 			g.drawString("G0", width / 2 - 10, 250);
-		if (i == 0)
+		if (i == 0) {
 			able = true;
+			Sound.background.loop();
+		}
 	}
 
 	public void run() {
@@ -318,12 +324,14 @@ public class Main extends Canvas implements Runnable {
 				if (!rapidFire) {
 					if (key.enter && !isShooting) {
 						c.addEntity(new Bullet(p.getXnXoff(), p.getYnYoff(), tex, this, c));
+						Sound.shot.play();
 						isShooting = true;
 					}
 				}
 				if (rapidFire) {
 					if (key.enter) {
 						c.addEntity(new Bullet(p.getXnXoff(), p.getYnYoff(), tex, this, c));
+						Sound.shot.play();
 					}
 				}
 			}
@@ -347,27 +355,29 @@ public class Main extends Canvas implements Runnable {
 			if (players == 2) {
 				p2.setOff(x2, y2);
 				if (key.up2) {
-					y2 -= 2;
+					y2 -= speed;
 				}
 				if (key.down2) {
-					y2 += 2;
+					y2 += speed;
 				}
 				if (key.left2) {
-					x2 -= 2;
+					x2 -= speed;
 				}
 				if (key.right2) {
-					x2 += 2;
+					x2 += speed;
 				}
 				if (!dead2) {
 					if (!rapidFire2) {
 						if (key.space && !isShooting) {
 							c.addEntity(new Bullet(p2.getXnXoff(), p2.getYnYoff(), tex, this, c));
+							Sound.shot.play();
 							isShooting = true;
 						}
 					}
 					if (rapidFire2) {
 						if (key.space) {
 							c.addEntity(new Bullet(p2.getXnXoff(), p2.getYnYoff(), tex, this, c));
+							Sound.shot.play();
 						}
 					}
 				}

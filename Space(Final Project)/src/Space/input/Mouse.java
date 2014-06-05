@@ -6,6 +6,7 @@ import java.awt.event.MouseMotionListener;
 
 import Space.Main;
 import Space.Main.State;
+import Space.sound.Sound;
 
 public class Mouse implements MouseListener, MouseMotionListener {
 
@@ -90,12 +91,14 @@ public class Mouse implements MouseListener, MouseMotionListener {
 			if (e.getX() >= 50 && e.getX() <= 170) {
 				if (e.getY() >= 50 && e.getY() <= Main.height * Main.scale - 50) {
 					Main.setPlayers(1);
+					Sound.count.play();
 					Main.state = State.GAME;
 				}
 			}
 			if (e.getX() >= 200 && e.getX() <= 320) {
 				if (e.getY() >= 50 && e.getY() <= Main.height * Main.scale - 50) {
 					Main.setPlayers(2);
+					Sound.count.play();
 					Main.state = State.GAME;
 				}
 			}

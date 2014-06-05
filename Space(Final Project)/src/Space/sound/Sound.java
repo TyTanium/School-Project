@@ -5,7 +5,9 @@ import java.applet.AudioClip;
 
 public class Sound {
 
-	public static Sound shot = new Sound("/audio/shot.wav");
+	public static Sound shot = new Sound("/audio/laser.wav");
+	public static Sound count = new Sound("/audio/beeping.wav");
+	public static Sound background = new Sound("/audio/Sandstorm.wav");
 
 	private AudioClip clip;
 
